@@ -1,0 +1,76 @@
+quests:
+  TheVirus:
+    displayName: A Deadly Virus
+    description: A deadly virus has infected the people of Winterfell. You have to
+      murder the infected villagers to prevent the virus from spreading further.
+    requirements:
+      '1':
+        conditionType: Number
+        progressNeeded: 1
+        negated: false
+        description: ''
+        specifics:
+          variableName: QuestPoints
+          operator: moreOrEqualThan
+          expression: '10'
+    objectives:
+      '1':
+        objectiveType: BreakBlocks
+        progressNeeded: 64
+        specifics:
+          blockToBreak:
+            material: DIRT
+          deductIfBlockPlaced: true
+        description: The infected Zombies shat on the street. Clean it up by breaking
+          64 dirt blocks!
+        displayName: Stinky Street
+      '2':
+        objectiveType: KillMobs
+        progressNeeded: 15
+        specifics:
+          mobToKill: zombie_villager
+        description: You can see the infected villagers in front of you! Murder them
+          all to stop the virus from spreading!
+        displayName: Zombies ahead!
+        conditions:
+          '1':
+            conditionType: CompletedObjective
+            progressNeeded: 1
+            negated: false
+            description: ''
+            specifics:
+              objectiveID: 1
+    triggers:
+      '1':
+        triggerType: BEGIN
+        triggerActionName: Spawn15ZombieVillagers
+        applyOn: 2
+        amountNeeded: 1
+        worldName: ALL
+    rewards:
+      '1':
+        actionType: Number
+        specifics:
+          expression: '2'
+          variableName: QuestPoints
+          operator: add
+        displayName: +2 Quest Points
+      '2':
+        actionType: GiveItem
+        specifics:
+          item:
+            ==: org.bukkit.inventory.ItemStack
+            v: 2865
+            type: WOODEN_SWORD
+            amount: 2
+        displayName: +2 handcrafted Wooden Swords
+      '3':
+        actionType: Number
+        specifics:
+          expression: '300'
+          variableName: Money
+          operator: add
+        displayName: +300 Coins
+    acceptCooldown: 1200
+    maxAccepts: 10
+    takeEnabled: false
